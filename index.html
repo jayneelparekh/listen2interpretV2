@@ -1,0 +1,347 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title> Companion Website </title>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <style>
+        body {
+    		font-family: 'Montserrat'; margin-left:201px; margin-right:151px
+	     }
+	</style>
+
+    </head>
+    <body>
+	    <div class="container my_text" align="center">
+	        <h1 style="color:brown;"> Listen to Interpret: Post-hoc Interpretability of Audio Networks with NMF </h1>
+		<p style="color:darkblue;">Project Webpage (Accepted at NeurIPS'22)</p>
+	    </div>
+		
+		<h2 style="color:brown;" id='code' align="center"> Abstract </h2>
+
+		<p> 
+		  This paper tackles post-hoc interpretability for audio processing networks. Our goal is to interpret decisions of a trained network in terms of high-level audio objects that are also listenable for the end-user. To this end, we propose a novel interpreter design that incorporates non-negative matrix factorization (NMF). In particular, a regularized interpreter module is trained to take hidden layer representations of the targeted network as input and produce time activations of pre-learnt NMF components as intermediate outputs. Our methodology allows us to generate intuitive audio-based interpretations that explicitly enhance parts of the input signal most relevant for a network's decision. We demonstrate our method's applicability on popular benchmarks, including a real-world multi-label classification task.  </p>
+
+                <br>
+
+                <p style="padding: 10px; border: 2px solid red;"> It's worth emphasizing that audio interpretability is <b> not </b> the same as classical audio tasks of separation or denoising. These tasks involve recovering complete object of interest in the output audio. On the other hand, a classifier network might focus more on salient regions. When interpreting its decision and making it listenable we expect to uncover such regions and not necessarily the complete object of interest. </p>
+
+
+
+                <ul>
+                    <li> <a class="active" href="#esc50_overlap">ESC50 examples</a>
+                        <ul>
+                            <li> <a class="active" href="#esc50_overlap">Corruption from a different class (Overlap experiment)</a>  </li> 
+                            <li> <a class="active" href="#esc50_noise">Corruption with 0dB noise (Noise experiment)</a>  </li>
+                            <li> <a class="active" href="#other_esc50_noise", style="color:blue">Other method interpretations (Noise experiment) </a> </li>
+                            <li> <a class="active" href="#misclassify">Misclassification examples (with 0dB noise)</a> </li>
+                        </ul> 
+                    </li>
+                    <li> <a class="active" href="#sonyc_ust">SONYC-UST examples</a> </li>
+                </ul>
+		
+		
+		<br>
+	
+                <ul>
+                     <li> Chrome is the preferred browser. The samples may not always run in Firefox. </li> <br>
+                     <li> Use of headphones/earphones recommended. </li> <br>
+                     <li> <b> Please tune your volume appropriately before playing any sample. </b> </li> <br>
+                     <li> <mark> The audio files may take some time to load. </mark> If they do not load even after waiting, it can be a temporary hosting server issue. In that case, please visit again after sometime</li> <br>
+                </ul>
+             
+ 
+
+            <br>
+
+
+            <h2 style="color:brown;" id='esc50_overlap'> Audio Samples: ESC50 with Corruption from different class </h2>
+
+            <p> Example interpretations on ESC50-fold 1 test data, where samples are corrupted with audio from a different class are given below. </p>
+
+            <p> For each sample you can listen to the input audio to the classifier, and interpretation audio for the class predicted by the classifier. Additionally, you can view four spectrograms to further support observations from listening to interpretations: (i) Uncorrupted target class signal (Top-Left), (ii) Corrupting/Mixing class signal (Top-right), (iii) Corrupted/mixed signal, also the input audio for classifier (Bottom-Left), (iv) Interpretation audio (Bottom-Right) </p>
+            
+
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'DOG' (classifier probability: 0.713) </p>
+            <p> Target class: 'DOG' &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp Corrupting class: 'CRYING-BABY' </p>
+            <img src="qualitative/ESC50_overlap/Sample_157_300_intensity0.15/original_157_spec.png" alt="A_spectrogram_target_class" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_157_300_intensity0.15/mixer_300_spec.png" alt="A_spectrogram_corrupt_class" width="256" height="256">
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/ESC50_overlap/Sample_157_300_intensity0.15/original_157_300.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr><td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_157_300_intensity0.15/Expl_157.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_overlap/Sample_157_300_intensity0.15/original_157_300_spec.png" alt="A_spectrogram_input" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_157_300_intensity0.15/Expl_157_spec.png" alt="A_spectrogram_interpretation" width="256" height="256">
+            <br> <br> <br>
+
+
+            <h4 style="color:darkblue;"> Sample B </h4>
+            <p> Predicted class by the classifier: 'CRYING-BABY' (classifier probability: 0.998) </p>
+            <p> Target class: 'CRYING-BABY'  &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp  Corrupting class: 'DOG'</p>
+            <img src="qualitative/ESC50_overlap/Sample_300_157_intensity0.6/original_300_spec.png" alt="B_spectrogram_target_class" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_300_157_intensity0.6/mixer_157_spec.png" alt="B_spectrogram_corrupt_class" width="256" height="256">
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/ESC50_overlap/Sample_300_157_intensity0.6/original_300_157.wav" type="audio/wav"> </audio> </td></tr> 
+	        <tr><td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_300_157_intensity0.6/Expl_300.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_overlap/Sample_300_157_intensity0.6/original_300_157_spec.png" alt="B_spectrogram_input" width="256" height="256"> 
+            <img src="qualitative/ESC50_overlap/Sample_300_157_intensity0.6/Expl_300_spec.png" alt="B_spectrogram_interpretation" width="256" height="256"> 
+            <br> <br> <br>
+
+
+            <h4 style="color:darkblue;"> Sample C </h4>
+            <p> Predicted class by the classifier: 'CHURCH-BELL' (classifier probability: 0.999) </p>
+            <p> Target class: 'CHURCH-BELL' &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp Corrupting class: 'ROOSTER' </p>
+            <img src="qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/original_199_spec.png" alt="C_spectrogram_target_class" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/mixer_178_spec.png" alt="C_spectrogram_corrupt_class" width="256" height="256">
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/original_199_178.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/Expl_199.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/original_199_178_spec.png" alt="C_spectrogram_input" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_199_178_Bell_Rooster/Expl_199_spec.png" alt="C_spectrogram_interpretation" width="256" height="256">
+            <br> <br> <br>
+
+
+            <h4 style="color:darkblue;"> Sample D </h4>
+            <p> Predicted class by the classifier: 'DOG' (classifier probability: 0.999)</p>
+            <p> Target class: 'DOG' &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp Corrupting class: 'CAT' </p>
+            <img src="qualitative/ESC50_overlap/Sample_157_229_intensity0.09/original_157_spec.png" alt="D_spectrogram_target_class" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_157_229_intensity0.09/mixer_229_spec.png" alt="D_spectrogram_corrupt_class" width="256" height="256">
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_157_229_intensity0.09/original_157_229.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_overlap/Sample_157_229_intensity0.09/Expl_157.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_overlap/Sample_157_229_intensity0.09/original_157_229_spec.png" alt="D_spectrogram_input" width="256" height="256">
+            <img src="qualitative/ESC50_overlap/Sample_157_229_intensity0.09/Expl_157_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <br> <br> <br>
+
+
+
+
+ 
+            <br> <br> <br> <br> <br> <br>
+          
+		
+	    <h2 style="color:brown;" id='esc50_noise'> Audio Samples: ESC50 with Noise (0dB SNR) </h2>
+
+            <p> Some example interpretations on ESC50-fold 1 test data, corrupted with white noise at 0dB SNR are given below. </p>
+
+            <p> For each sample you can listen to the input to the classifier, and interpretation audio for the class predicted by the classifier. Again, as the corrupting signal is already known, we further support the observations by listening to interpretations with spectrograms for (i) Input audio (corrupted with white noise), (ii) Interpretation audio. In all cases the noise in interpretation audio is significantly reduced compared to input and the most emphasis is on part of input from class of interest </p>
+            
+		
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'ROOSTER' (classifier probability: 0.964) </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Noise/original_178.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Noise/Expl_178.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_Noise/original_178_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/ESC50_Noise/Expl_178_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <br>
+
+            <h4 style="color:darkblue;"> Sample B </h4>
+            <p> Predicted class by the classifier: 'CAT' (classifier probability: 0.978) </p>
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/ESC50_Noise/original_229.wav" type="audio/wav"> </audio> </td> </tr> 
+                <tr><td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Noise/Expl_229.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_Noise/original_229_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/ESC50_Noise/Expl_229_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <br>
+
+            <h4 style="color:darkblue;"> Sample C </h4>
+            <p> Predicted class by the classifier: 'SHEEP' (classifier probability: 0.998) </p>
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/ESC50_Noise/original_237.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr><td style="color:brown;"> Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Noise/Expl_237.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/ESC50_Noise/original_237_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/ESC50_Noise/Expl_237_spec.png" alt="D_spectrogram_interpretation" width="256" height="256">
+            <br> 
+
+
+
+            <br> <br> <br> <br> <br> <br>
+
+
+            
+            <h2 style="color:brown;" id='other_esc50_noise'> Other methods interpretations (0dB SNR noise) </h2>
+
+            <h3> IBA Attribution </h3>
+
+            <p> Example interpretations generated using an attribution map approach on ESC50-fold 1 test data, corrupted with white noise at 0dB SNR are given below. </p>
+
+            <p> Experimental details: We used the python PyTorch version of their package and follow the standard example version given as example on their webpage (repository link: https://github.com/BioroboticsLab/IBA). They insert a bottleneck in conv layer from 4th block of VGG16. Our network architecture is also similar to VGG architectures. So we applied a bottleneck at the output of 4th conv block, which we also access via our interpreter. They use Adam optimization for 10 iterations and we follow the same procedure through their package. The saliency map is applied on the mel-spectrogram and then STFT is approximated and finally inverted to time-domain using input phase for a time-domain audio output. </p>
+
+            <p> For each sample you can listen to the input to the classifier, and IBA interpretation audio for the predicted class. We also show the saliency maps on mel-spectrogram space generated using IBA. From the time of activations in the saliency maps below, it is clear that IBA visually identifies relevant regions, but as an audio filter it is poor given the high amount of noise still in the interpretations. A very interesting observation is that the brightest spot of saliency map in time corresponds to most emphasized signal in our interpretations (for both examples), which just reinforce insights from our system, given the significant methodological differences of obtaining the two.</p>
+            
+		
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'ROOSTER' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/IBA_Noise/iba_original_178.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> IBA Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/IBA_Noise/iba_Expl_178.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/IBA_Noise/iba_178_inp_spec.png" alt="A_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/IBA_Noise/iba_178_expl_spec.png" alt="A_LMspectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/IBA_Noise/iba_178_saliency.png" alt="A_LMspectrogram_interpretation" width="700" height="256">
+            <br>
+
+
+            <h4 style="color:darkblue;"> Sample C </h4>
+            <p> Predicted class by the classifier: 'SHEEP' </p>
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/IBA_Noise/iba_original_237.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr><td style="color:brown;"> IBA Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/IBA_Noise/iba_Expl_237.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/IBA_Noise/iba_237_inp_spec.png" alt="C_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/IBA_Noise/iba_237_expl_spec.png" alt="C_LMspectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/IBA_Noise/iba_237_saliency.png" alt="A_LMspectrogram_interpretation" width="700" height="266">
+            <br> 
+
+            <br> <br> <br>
+
+            <h3> FLINT Visualization and audio </h3>
+
+            <p> Local interpretations with FLINT on ESC50-fold 1 test data, corrupted with white noise at 0dB SNR are given below. </p>
+
+            <p> </p>
+
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'ROOSTER' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/original_178.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> FLINT interpretation audio (Attribute 77) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/Samp_178_attr77_class1.wav" type="audio/wav">   </audio> </td> </tr>
+                <tr> <td style="color:brown;"> FLINT interpretation audio (Attribute 62) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/Samp_178_attr62_class1.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/FLINT_Noise/flint_178_inpspec.png" alt="A_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/FLINT_Noise/ampi_178_attr77_spec.png" alt="A_FLINT_LMspectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/FLINT_Noise/ampi_178_attr62_spec.png" alt="A_FLINT_LMspectrogram_interpretation" width="256" height="256">
+            <br> <br>
+
+            <h4 style="color:darkblue;"> Sample C </h4>
+            <p> Predicted class by the classifier: 'SHEEP' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/original_237.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> FLINT interpretation audio (Attribute 77) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/Samp_237_attr77_class8.wav" type="audio/wav">   </audio> </td> </tr>
+                <tr> <td style="color:brown;"> FLINT interpretation audio (Attribute 7) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/FLINT_Noise/Samp_237_attr7_class8.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/FLINT_Noise/flint_237_inpspec.png" alt="C_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/FLINT_Noise/ampi_237_attr77_spec.png" alt="C_FLINT_LMspectrogram_interpretation" width="256" height="256">
+            <img src="qualitative/FLINT_Noise/ampi_237_attr7_spec.png" alt="C_FLINT_LMspectrogram_interpretation" width="256" height="256">
+            <br>
+            
+
+
+
+            <br> <br> <br> <br> <br> <br>
+
+
+
+            <h2 style="color:brown;" id='misclassify'> ESC50-Misclassification examples (with 0dB noise) </h2>
+
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'CAR-HORN' (classifier probability: 0.931) &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp  Ground truth class: 'CRYING-BABY' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Misclassify/original_300.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> Interpretation audio (for predicted class) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Misclassify/Expl_300.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <br>
+
+            <h4 style="color:darkblue;"> Sample B </h4>
+            <p> Predicted class by the classifier: 'GLASS-BREAKING' (classifier probability: 0.437) &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp Ground truth class: 'CAN-OPENING' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Misclassify/original_323.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> Interpretation audio (for predicted class) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/ESC50_Misclassify/Expl_323.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <br>
+
+            <br> <br> <br> <br> <br> <br>  
+
+
+
+            <h2 style="color:brown;" id='sonyc_ust'> Audio Samples: SONYC-UST examples </h2>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'ALERT SIGNAL' (car/truck horns, sirens, alarm) </h3>
+            <p> Sample 1 contains two horns towards the end of audio. Interpretation almost entirely filters out noise, very clearly emphasizes the two horns. <br> <br> Sample 2 contains heavy noise with very weak presence of horns. The prominent one being around 5 second mark. However, the interpretation is able to emphasize this horn and filter out most of other signals. </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_302.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_13.wav" type="audio/wav"> </audio> </td> 
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_302Cl_4.wav" type="audio/wav">   </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> 
+                     <td style="color:brown;"> Interpretation 2 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_13Cl_4.wav" type="audio/wav">   </audio>
+                </tr>
+            </table>
+
+            <br> <br>
+            <h3 style="color:darkblue;"> Example interpretations for class 'DOG' </h3>
+            <p> Both samples contain singular dog barks which are emphasized in the interpretation, simultaneously filtering out most other signals </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_414.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_582.wav" type="audio/wav"> </audio>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_414Cl_7.wav" type="audio/wav">   </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> 
+                     <td style="color:brown;"> Interpretation 2 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_582Cl_7.wav" type="audio/wav">
+                </tr>
+            </table>
+
+            <br> <br>
+            <h3 style="color:darkblue;"> Example interpretations for class 'MUSIC' </h3>
+            <p> Sample 1 contains weak music signal with high intensity of other signals (background noise, chirping birds etc.). Interpretation suppresses most of other signals from time frames where music is not present. It also clearly emphasizes the music signal although some background noise is also captured with it. It is still good indicator of classifier making the decision based on actually detecting the music signal. <br> <br> Sample 2 contains relatively strong music signal along with reasonable strength of noise and human voices. The interpretation significantly suppresses human voices, and to some extent the background noise while clearly emphasizing the music signal. </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_391.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_107.wav" type="audio/wav"> </audio>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_391Cl_5.wav" type="audio/wav">   </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td> 
+                     <td style="color:brown;"> Interpretation 2 &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_107Cl_5.wav" type="audio/wav">   </audio>
+                </tr>
+            </table>
+
+
+
+            <br> <br>
+            <h3 style="color:darkblue;"> Examples for full sample interpretations </h3>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_519.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/SONYC_UST/original_616.wav" type="audio/wav"> </audio>
+                </tr>  
+
+                <tr>
+                     <td> Predicted classes: 'ALERT-SIGNAL', 'HUMAN'  </td> <td> </td>
+                     <td> Predicted classes: 'ALERT-SIGNAL', 'MUSIC', 'HUMAN'</td>  <td> </td>
+                </tr>
+
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 - 'ALERT-SIGNAL' &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_519Cl_4.wav" type="audio/wav">   </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 2 - 'ALERT-SIGNAL' &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_616Cl_4.wav" type="audio/wav">   </audio>
+                </tr>
+ 
+                <tr>
+                     <td style="color:brown;"> Interpretation 1 - 'HUMAN' &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_519Cl_6.wav" type="audio/wav">   </audio> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 2 - 'MUSIC' &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_616Cl_5.wav" type="audio/wav">   </audio>
+                </tr>
+
+                <tr>
+                     <td>   </td> <td> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 2 - 'HUMAN' (Poor Interpretation) &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/SONYC_UST/Expl_616Cl_6.wav" type="audio/wav">   </audio>
+                </tr>
+
+                <tr>
+                    <td> </td> <td> </td>
+                    <td> <p> This sample is quite difficult for class 'HUMAN'. The human voices are considerably weak in intensity and dominated by other classes and noise. 
+                              </p> </td>  <td> </td>
+                </tr>
+            </table>
+            
+		
+    </body>
+</html>

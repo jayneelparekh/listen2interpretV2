@@ -21,7 +21,7 @@
 		<p> 
 		  This paper tackles two major problem settings for interpretability of audio processing networks, post-hoc and by-design interpretation. 
 		  For post-hoc interpretation, we aim to interpret decisions of a network in terms of high-level audio objects that are also listenable for the end-user. 
-		  This is extended to present an inherently interpretable model with high performance. To this end, we propose a novel interpreter design that incorporates non-negative matrix factorization (NMF). In particular, an interpreter is trained to generate a regularized intermediate embedding from hidden layers of a target network, learnt as time-activations of a pre-learnt NMF dictionary. Our methodology allows us to generate intuitive audio-based interpretations that explicitly enhance parts of the input signal most relevant for a network's decision. We demonstrate our method's applicability on a variety of classification tasks, including multi-label data for real-world audio and music.
+		  This is extended to present an inherently interpretable model with high performance. To this end, we propose a novel interpreter design that incorporates non-negative matrix factorization (NMF). In particular, an interpreter is trained to generate a regularized intermediate embedding from hidden layers of a target network, learnt as time-activations of a pre-learnt NMF dictionary. Our methodology allows us to generate intuitive audio-based interpretations that explicitly enhance parts of the input signal most relevant for a network's decision. We demonstrate our method's applicability on a variety of classification tasks, including multi-label data for real-world audio and music. Our <a href="https://github.com/jayneelparekh/L2I-code">implementation</a> is on github
                 <br>
 
                 <p style="padding: 10px; border: 2px solid red;"> It's worth emphasizing that audio interpretability is <b> not </b> the same as classical audio tasks of separation or denoising. These tasks involve recovering complete object of interest in the output audio. On the other hand, a classifier network might focus more on salient regions. When interpreting its decision and making it listenable we expect to uncover such regions and not necessarily the complete object of interest. </p>
@@ -29,15 +29,17 @@
 
 
                 <ul>
-                    <li> <a class="active" href="#esc50_overlap">ESC50 examples</a>
+                    <li> <a class="active" href="#esc50_overlap">ESC50 examples</a> <br>
                         <ul>
                             <li> <a class="active" href="#esc50_overlap">Corruption from a different class (Overlap experiment)</a>  </li> 
                             <li> <a class="active" href="#esc50_noise">Corruption with 0dB noise (Noise experiment)</a>  </li>
                             <li> <a class="active" href="#other_esc50_noise", style="color:blue">Other method interpretations (Noise experiment) </a> </li>
                             <li> <a class="active" href="#misclassify">Misclassification examples (with 0dB noise)</a> </li>
                         </ul> 
-                    </li>
-                    <li> <a class="active" href="#sonyc_ust">SONYC-UST examples</a> </li>
+                    </li> <br>
+                    <li> <a class="active" href="#sonyc_ust">SONYC-UST examples</a> </li> <br>
+                    <li> <a class="active" href="#openmic">OpenMIC-2018 examples</a> </li> <br>
+                    <li> <a class="active" href="#baselines">Baselines</a> </li>
                 </ul>
 		
 		
@@ -232,8 +234,32 @@
             <img src="qualitative/FLINT_Noise/ampi_237_attr77_spec.png" alt="C_FLINT_LMspectrogram_interpretation" width="256" height="256">
             <img src="qualitative/FLINT_Noise/ampi_237_attr7_spec.png" alt="C_FLINT_LMspectrogram_interpretation" width="256" height="256">
             <br>
+
+            <br> <br> <br>
             
 
+            <h3> Guided-Backpropagation </h3>
+
+            <h4 style="color:darkblue;"> Sample A </h4>
+            <p> Predicted class by the classifier: 'ROOSTER' </p>
+            <table>
+                <tr> <td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/IBA_Noise/iba_original_178.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr> <td style="color:brown;"> GuidedBackprop Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/GBP_Noise/gbp_178_final2.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/IBA_Noise/iba_178_inp_spec.png" alt="A_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/GBP_Noise/gbp_178_expl_spec.png" alt="A_LMspectrogram_interpretation" width="256" height="256">
+            <br>
+
+
+            <h4 style="color:darkblue;"> Sample C </h4>
+            <p> Predicted class by the classifier: 'SHEEP' </p>
+            <table>
+                <tr><td style="color:brown;"> Input sample &emsp; &emsp; &emsp; </td> <td> <audio controls> <source src= "qualitative/IBA_Noise/iba_original_237.wav" type="audio/wav"> </audio> </td></tr>  
+	        <tr><td style="color:brown;"> GuidedBackprop Interpretation audio &emsp; &emsp; </td> <td> <audio controls>  <source src= "qualitative/GBP_Noise/gbp_237_final2.wav" type="audio/wav">   </audio> </td> </tr>
+            </table>
+            <img src="qualitative/IBA_Noise/iba_237_inp_spec.png" alt="C_LMspectrogram_input" width="256" height="256">
+            <img src="qualitative/GBP_Noise/gbp_237_expl_spec.png" alt="C_LMspectrogram_interpretation" width="256" height="256">
+            <br> 
 
 
             <br> <br> <br> <br> <br> <br>
@@ -342,7 +368,172 @@
                               </p> </td>  <td> </td>
                 </tr>
             </table>
-            
+
+          
+
+            <h2 style="color:brown;" id='openmic'> Audio Samples: OpenMIC-2018 examples </h2>
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'BASS' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_68.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_749.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_1478.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_68Cl_2.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td> 
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_749Cl_2.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_1478Cl_2.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'FLUTE' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_2632.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_763.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4822.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_2632Cl_7.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_763Cl_7.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4822Cl_7.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'VIOLIN' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4299.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_3900.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4524.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4299Cl_18.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_3900Cl_18.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4524Cl_18.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'GUITAR' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_2780.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4413.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4989.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_2780Cl_8.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4413Cl_8.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4989Cl_8.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'PIANO' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_1409.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_2496.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4740.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_1409Cl_12.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_2496Cl_12.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4740Cl_12.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for classes 'SAXOPHONE/TROMBONE/TRUMPET' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_676.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_1002.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_1093.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_676Cl_13.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_1002Cl_13.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_1093Cl_16.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'ORGAN' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_3008.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4493.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_4709.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_3008Cl_11.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4493Cl_11.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_4709Cl_11.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+            <h3 style="color:darkblue;"> Example interpretations for class 'MALLET-PERCUSSION' </h3>
+            <p>  </p>
+            <table>
+                <tr> 
+                     <td style="color:brown;"> Sample 1 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_547.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 2 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_933.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Sample 3 &emsp; </td> <td> <audio controls> <source src= "qualitative/OpenMIC/original_1161.wav" type="audio/wav"> </audio> </td>
+                </tr>  
+	        <tr>
+                     <td style="color:brown;"> Interpretation 1 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_547Cl_9.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>
+                     <td style="color:brown;"> Interpretation 2 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_933Cl_9.wav" type="audio/wav"> </audio> &emsp; &emsp; &emsp; &emsp; &emsp; </td>  
+                     <td style="color:brown;"> Interpretation 3 &emsp; </td> <td> <audio controls>  <source src= "qualitative/OpenMIC/Expl_1161Cl_9.wav" type="audio/wav"> </audio> </td> 
+                </tr>
+            </table>
+
+            <br> <br>
+
+
+
+            <h2 style="color:brown;" id='baselines'> Baseline implementation details </h2>
+             
+                <ol>
+
+                    <li> <b> FLINT: </b> We implemented it with the help of their <a href="https://github.com/jayneelparekh/FLINT">official implementation</a> available on GitHub. For each experiment, we fix their number of attributes J equal to the number of our NMF components K. We also choose the same hidden layers for their system as we choose for ours. This baseline is trained for the same number of epochs as us. We use same values for our NMF loss weight, and their input fidelity loss weight. For the other loss hyperparameters, we use their default values and training strategy. </li>
+                    <br> <br>
+                    <li> <b> VIBI: </b> We implemented this using their <a href="https://github.com/SeojinBang/VIBI">official repository</a>. The key hyperparameters that we set are the input chunk size and their parameter K, the number of chunks to use for interpretation. We use a larger chunk size than in their experiments to limit the number of chunks. On ESC-50, we use a chunk size of 32 X 43, and on SONYC-UST, a chunk size of 32 X 86. This yields 40 chunks for each input on both the datasets. We varied the K from 5 to 20, and report the results with best fidelity. The system was trained for 100 epochs on ESC-50 and 30 epochs on SONYC-UST.  </li>
+                    <br> <br>
+                    <li> <b> SLIME: </b> We primarily relied on implementation from their <a href="https://github.com/saum25/local_exp_robustness">robustness analysis repository</a>. The key hyperparameters to balance are the number of chunks vs chunk size. SONYC-UST contains 10 second audio files. This is much longer than 1.6 second audio files for which SLIME was originally demonstrated. Therefore, we divide only on the time-axis to limit the number of chunks. SLIME recommends a chunk size of at least 100ms. They operate on upto 290ms chunk size. We balance these two hyperparameters by dividing our audio files in 20 chunks of 500ms chunk size. We select a maximum of 5 chunks for interpretations and a neighbourhood size of 1000. </li>
+                    <br> <br>
+                    <li> <b> APNet: </b> We utilized their <a href="https://github.com/pzinemanas/APNet">source code</a> for implementing their method on our datasets. We did not modify their network design or loss weights and set the number of prototypes same as our number of components. The number of mel filters was chosen between 64 and 128. We trained their system for 100 epochs on ESC-50 (each fold) and 21 epochs for SONYC-UST and OpenMIC-2018 and report the highest recorded metrics.  </li>
+                    <br> <br>
+                    <li> <b> NMF variants: </b> For implementing both TDL-NMF and Unsupervised-NMF, we utilized the <a href="https://github.com/rserizel/TGNMF">source repository</a> of TDL-NMF. The unsupervised-NMF variant simply trains a linear model on top of generated time activations for predictions while the dictionary is also updated with classification loss for TDL-NMF. We trained dictionaries of multiple sizes, ranging from 32 to 256 for each dataset and two different audio representations, log-magnitude spectrogram and mel-spectrogram. The best performance among all these configurations is reported.  </li>
+
+                </ol>
+
+                
 		
     </body>
 </html>
